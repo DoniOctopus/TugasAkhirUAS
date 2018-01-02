@@ -1,0 +1,1259 @@
+'posisi mata 
+Dim pmatax# = 0
+Dim pmatay# = 0
+Dim pmataz# = 4.5
+
+'posisi titik pandang 
+Dim ppandangx# = 0 
+Dim ppandangy# = 0
+Dim ppandangz# = -4   
+
+Dim pindah# = 0.01                             
+ 
+dim putar# 
+dim putar2# 
+
+'kkecil
+dim x#=0.1
+dim y#=1
+dim z#=0.1
+
+'tembok samping kanan
+Dim a# = 0.1
+Dim b# = 1.7
+Dim c# = 0.1 
+
+
+'tembok samping kiri
+Dim aa# = 0.1
+Dim bb# = 1.7
+Dim cc# = 0.1
+
+'tembok samping belakang
+Dim aaa# = 0.1
+Dim bbb# = 2.2
+Dim ccc# = 0.1
+
+'tembok samping kanan2
+Dim a2# = 0.1
+Dim b2# = 1.7
+Dim c2# = 0.1 
+
+
+'tembok samping kiri2
+Dim aa2# = 0.1
+Dim bb2# = 1.7
+Dim cc2# = 0.1
+
+'tembok samping belakang2
+Dim aaa2# = 0.1
+Dim bbb2# = 2.2
+Dim ccc2# = 0.1
+
+'variabel untuk menyimpan gambar tekstur
+Dim tekstur
+tekstur = loadmipmaptexture("gbr/kayu8.jpg")                                        
+Dim tekstur2
+tekstur2 = loadmipmaptexture("gbr/kayu7.jpg")
+Dim tekstur3
+tekstur3 = loadmipmaptexture("gbr/kayu4.jpg")
+'beritahu bahwa akan menggunakan tekstur
+glEnable(gl_texture_2d)
+
+while true     
+glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT)
+glLoadIdentity()
+
+
+gluLookAt(pmatax#, pmatay#, pmataz#, ppandangx#, ppandangy#, ppandangz#, 0,90,0) 'posisi mata, posisi titik pandang, vektor up (0,1,0)
+
+
+    glrotatef(putar#,1,0,0) 'rotasi 90derajat  'untuk memutar objek 360 
+   glrotatef(putar2#,0,1,0) 'rotasi 90derajat  'untuk memutar objek 360
+glBindTexture(gl_texture_2d, tekstur3)
+glBegin(GL_QUADS)  'sisi belakang 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,1)
+   glVertex3f(2, 0.3, -1.5) 'kanan atas   
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,0)
+   glVertex3f(-2, 0.3, -1.5) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)
+   glVertex3f(-2, 0, -1.5) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)
+   glVertex3f(2, 0, -1.5)'kanan bawah 
+glEnd()                                      
+
+glBegin(GL_QUADS)  'sisi depan
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(2, 0.3, 1.5) 'kanan atas   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)
+   glVertex3f(-2, 0.3, 1.5) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)
+   glVertex3f(-2, 0, 1.5) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)
+   glVertex3f(2, 0, 1.5)'kanan bawah 
+glEnd()                                       
+glBindTexture(gl_texture_2d, tekstur2) 
+glBegin(GL_QUADS)  'sisi atas 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(2, 0.3, -1.5) 'kanan depan   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)
+   glVertex3f(2, 0.3, 1.5) 'kanan belakang 
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)
+   glVertex3f(-2, 0.3, 1.5) 'kiri belakang 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)
+   glVertex3f(-2, 0.3, -1.5)'kiri depan 
+glEnd() 
+
+glBindTexture(gl_texture_2d, tekstur)
+glBegin(GL_QUADS)  'bawah 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(2, 0, 1.5) 'kanan bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-2, 0, 1.5) 'kiri bawah belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-2, 0, -1.5) 'kiri bawah depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(2, 0, -1.5)'kanan bawah depan 
+glEnd() 
+glBindTexture(gl_texture_2d, tekstur3)
+glBegin(GL_QUADS)  'samping kanan
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(2, 0.3, -1.5) 'belakang atas  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(2, 0, -1.5) 'belakang bawah
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(2, 0, 1.5) 'depan bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(2, 0.3, 1.5)'depan atas
+glEnd()      
+
+glBegin(GL_QUADS)  'samping kiri 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(-2, 0, 1.5) 'kiri bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-2, 0.3, 1.5) 'kiri atas belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-2, 0.3, -1.5) 'kiri atas depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(-2, 0, -1.5)'kiri bawah depan 
+glEnd()            
+
+'***************************************************************
+'******************************kkecil***************************
+'***************************************************************
+
+gltranslatef(1.9,0.7,1.4)'translasi ke kanan
+glBindTexture(gl_texture_2d, tekstur3)
+glBegin(GL_QUADS)  'sisi depan 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+
+   glVertex3f(x#, y#, -z#) 'kanan atas   
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1) 
+
+   glVertex3f(-x#, y#, -z#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   
+   glVertex3f(-x#, -y#, -z#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0) 
+  
+   glVertex3f(x#, y#, z#)'kanan bawah               
+
+glEnd()                                      
+
+glBegin(GL_QUADS)  'sisi belakang 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)  
+
+   glVertex3f(x#, y#, z#) 'kanan atas   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)  
+ 
+   glVertex3f(-x#, y#, z#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)  
+
+   glVertex3f(-x#, -y#, z#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)   
+
+   glVertex3f(x#, -y#, z#)'kanan bawah  
+  
+glEnd()                                        
+   
+glBegin(GL_QUADS)  'sisi atas 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)  
+
+   glVertex3f(x#, y#, -z#) 'kanan depan   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)     
+ 
+   glVertex3f(x#, y#, z#) 'kanan belakang 
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)      
+
+   glVertex3f(-x#, y#, z#) 'kiri belakang 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1) 
+
+   glVertex3f(-x#, y#, -z#)'kiri depan   
+
+glEnd()           
+
+glBegin(GL_QUADS)  'bawah 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1) 
+
+   glVertex3f(x#, -y#, z#) 'kanan bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)  
+ 
+   glVertex3f(-x#, -y#, z#) 'kiri bawah belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)  
+
+   glVertex3f(-x#, -y#, -z#) 'kiri bawah depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0) 
+
+   glVertex3f(x#, -y#, -z#)'kanan bawah depan  
+  
+glEnd()    
+
+glBegin(GL_QUADS)  'samping kanan
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1) 
+
+   glVertex3f(x#, y#, -z#) 'belakang atas  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)  
+
+   glVertex3f(x#, -y#, -z#) 'belakang bawah
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)    
+
+   glVertex3f(x#, -y#, z#) 'depan bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)   
+
+   glVertex3f(x#, y#, z#)'depan atas    
+    
+glEnd()  
+
+glBegin(GL_QUADS)  'samping kiri 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)  
+
+   glVertex3f(-x#, -y#, z#) 'kiri bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)   
+ 
+   glVertex3f(-x#, y#, z#) 'kiri atas belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)    
+
+   glVertex3f(-x#, y#, -z#) 'kiri atas depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)    
+  
+   glVertex3f(-x#, -y#, -z#)'kiri bawah depan  
+   
+glEnd() 
+'***************************************************************
+'******************************kkecil 2***************************
+'***************************************************************        
+gltranslatef(-3.8,0,0)  'translasi ke kanan
+glBegin(GL_QUADS)  'sisi depan 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+
+   glVertex3f(x#, y#, -z#) 'kanan atas   
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1) 
+
+   glVertex3f(-x#, y#, -z#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   
+   glVertex3f(-x#, -y#, -z#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0) 
+  
+   glVertex3f(x#, -y#, -z#)'kanan bawah     
+
+glEnd()                                      
+
+glBegin(GL_QUADS)  'sisi belakang 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)  
+
+   glVertex3f(x#, y#, z#) 'kanan atas   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)  
+ 
+   glVertex3f(-x#, y#, z#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)  
+
+   glVertex3f(-x#, -y#, z#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)   
+
+   glVertex3f(x#, -y#, z#)'kanan bawah  
+  
+glEnd()                                        
+   
+glBegin(GL_QUADS)  'sisi atas 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)  
+
+   glVertex3f(x#, y#, -z#) 'kanan depan   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)     
+ 
+   glVertex3f(x#, y#, z#) 'kanan belakang 
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)      
+
+   glVertex3f(-x#, y#, z#) 'kiri belakang 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1) 
+
+   glVertex3f(-x#, y#, -z#)'kiri depan   
+
+glEnd()           
+
+glBegin(GL_QUADS)  'bawah 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1) 
+
+   glVertex3f(x#, -y#, z#) 'kanan bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)  
+ 
+   glVertex3f(-x#, -y#, z#) 'kiri bawah belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)  
+
+   glVertex3f(-x#, -y#, -z#) 'kiri bawah depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0) 
+
+   glVertex3f(x#, -y#, -z#)'kanan bawah depan  
+  
+glEnd()    
+
+glBegin(GL_QUADS)  'samping kanan
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1) 
+
+   glVertex3f(x#, y#, -z#) 'belakang atas  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)  
+                       
+   glVertex3f(x#, -y#, -z#) 'belakang bawah
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)    
+
+   glVertex3f(x#, -y#, z#) 'depan bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)   
+
+   glVertex3f(x#, y#, z#)'depan atas   
+    
+glEnd()  
+
+glBegin(GL_QUADS)  'samping kiri 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)  
+
+   glVertex3f(-x#, -y#, z#) 'kiri bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)   
+ 
+   glVertex3f(-x#, y#, z#) 'kiri atas belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)    
+
+   glVertex3f(-x#, y#, -z#) 'kiri atas depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)    
+  
+   glVertex3f(-x#, -y#, -z#)'kiri bawah depan  
+   
+glEnd() 
+
+'***************************************************************
+'******************************kkecil 3***************************
+'***************************************************************  
+ gltranslatef(0,0,-2.8)  'translasi ke kanan
+glBegin(GL_QUADS)  'sisi depan 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+
+   glVertex3f(x#, y#, -z#) 'kanan atas   
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1) 
+
+   glVertex3f(-x#, y#, -z#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   
+   glVertex3f(-x#, -y#, -z#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0) 
+  
+   glVertex3f(x#, -y#, -z#)'kanan bawah     
+
+glEnd()                                      
+
+glBegin(GL_QUADS)  'sisi belakang 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)  
+
+   glVertex3f(x#, y#, z#) 'kanan atas   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)  
+ 
+   glVertex3f(-x#, y#, z#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)  
+
+   glVertex3f(-x#, -y#, z#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)   
+
+   glVertex3f(x#, -y#, z#)'kanan bawah  
+  
+glEnd()                                        
+   
+glBegin(GL_QUADS)  'sisi atas 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)  
+
+   glVertex3f(x#, y#, -z#) 'kanan depan   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)     
+ 
+   glVertex3f(x#, y#, z#) 'kanan belakang 
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)      
+
+   glVertex3f(-x#, y#, z#) 'kiri belakang 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1) 
+
+   glVertex3f(-x#, y#, -z#)'kiri depan   
+
+glEnd()           
+
+glBegin(GL_QUADS)  'bawah 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1) 
+
+   glVertex3f(x#, -y#, z#) 'kanan bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)  
+ 
+   glVertex3f(-x#, -y#, z#) 'kiri bawah belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)  
+
+   glVertex3f(-x#, -y#, -z#) 'kiri bawah depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0) 
+
+   glVertex3f(x#, -y#, -z#)'kanan bawah depan  
+  
+glEnd()    
+
+glBegin(GL_QUADS)  'samping kanan
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1) 
+
+   glVertex3f(x#, y#, -z#) 'belakang atas  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)  
+
+   glVertex3f(x#, -y#, -z#) 'belakang bawah
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)    
+
+   glVertex3f(x#, -y#, z#) 'depan bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)   
+
+   glVertex3f(x#, y#, z#)'depan atas  
+    
+glEnd()  
+
+glBegin(GL_QUADS)  'samping kiri 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)  
+
+   glVertex3f(-x#, -y#, z#) 'kiri bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)   
+ 
+   glVertex3f(-x#, y#, z#) 'kiri atas belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)    
+
+   glVertex3f(-x#, y#, -z#) 'kiri atas depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)    
+  
+   glVertex3f(-x#, -y#, -z#)'kiri bawah depan  
+   
+glEnd()   
+
+  '***************************************************************
+'******************************kkecil 4***************************
+'***************************************************************  
+ gltranslatef(3.8,0,0)  'translasi ke kanan
+glBegin(GL_QUADS)  'sisi depan 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+
+   glVertex3f(x#, y#, -z#) 'kanan atas   
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1) 
+
+   glVertex3f(-x#, y#, -z#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   
+   glVertex3f(-x#, -y#, -z#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0) 
+  
+   glVertex3f(x#, -y#, -z#)'kanan bawah     
+
+glEnd()                                      
+
+glBegin(GL_QUADS)  'sisi belakang 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)  
+
+   glVertex3f(x#, y#, z#) 'kanan atas   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)  
+ 
+   glVertex3f(-x#, y#, z#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)  
+
+   glVertex3f(-x#, -y#, z#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)   
+
+   glVertex3f(x#, -y#, z#)'kanan bawah  
+  
+glEnd()                                        
+   
+glBegin(GL_QUADS)  'sisi atas 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)  
+
+   glVertex3f(x#, y#, -z#) 'kanan depan   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)     
+ 
+   glVertex3f(x#, y#, z#) 'kanan belakang 
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)      
+
+   glVertex3f(-x#, y#, z#) 'kiri belakang 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1) 
+
+   glVertex3f(-x#, y#, -z#)'kiri depan   
+
+glEnd()           
+
+glBegin(GL_QUADS)  'bawah 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1) 
+
+   glVertex3f(x#, -y#, z#) 'kanan bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)  
+ 
+   glVertex3f(-x#, -y#, z#) 'kiri bawah belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)  
+
+   glVertex3f(-x#, -y#, -z#) 'kiri bawah depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0) 
+
+   glVertex3f(x#, -y#, -z#)'kanan bawah depan  
+  
+glEnd()    
+
+glBegin(GL_QUADS)  'samping kanan
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1) 
+
+   glVertex3f(x#, y#, -z#) 'belakang atas  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)  
+
+   glVertex3f(x#, -y#, -z#) 'belakang bawah
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)    
+
+   glVertex3f(x#, -y#, z#) 'depan bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)   
+
+   glVertex3f(x#, y#, z#)'depan atas   
+    
+glEnd()  
+
+glBegin(GL_QUADS)  'samping kiri 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)  
+
+   glVertex3f(-x#, -y#, z#) 'kiri bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)   
+ 
+   glVertex3f(-x#, y#, z#) 'kiri atas belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)    
+
+   glVertex3f(-x#, y#, -z#) 'kiri atas depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)    
+  
+   glVertex3f(-x#, -y#, -z#)'kiri bawah depan  
+   
+glEnd() 
+
+'##########################################################
+'#####################tembok samping kanan########################
+'##########################################################
+glBindTexture(gl_texture_2d, tekstur3)
+glrotatef(90,1,0,0)
+gltranslatef(0,1.4,0)  'translasi ke kanan
+glBegin(GL_QUADS)  'sisi depan 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(a#, b#, -c#) 'kanan atas   
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-a#, b#, -c#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-a#, -b#, -c#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(a#, -b#, -c#)'kanan bawah 
+glEnd()                                      
+
+glBegin(GL_QUADS)  'sisi belakang 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(a#, b#, c#) 'kanan atas   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)
+   glVertex3f(-a#, b#, c#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)
+   glVertex3f(-a#, b#, c#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)
+   glVertex3f(a#, -b#, c#)'kanan bawah 
+glEnd()                                        
+       
+glBegin(GL_QUADS)  'sisi atas 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(a#, b#, -c#) 'kanan depan   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)
+   glVertex3f(a#, b#, c#) 'kanan belakang 
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)
+   glVertex3f(-a#, b#, c#) 'kiri belakang 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)
+   glVertex3f(-a#, b#, -c#)'kiri depan 
+glEnd()       
+
+glBegin(GL_QUADS)  'bawah 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(a#, -b#, c#) 'kanan bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-a#, -b#, c#) 'kiri bawah belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-a#, -b#, -c#) 'kiri bawah depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(a#, -b#, -c#)'kanan bawah depan 
+glEnd() 
+
+glBegin(GL_QUADS)  'samping kanan
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(a#, b#, -c#) 'belakang atas  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(a#, -b#, -c#) 'belakang bawah
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(a#, -b#, c#) 'depan bawah
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(a#, b#, c#)'depan atas
+glEnd()       
+
+glBegin(GL_QUADS)  'samping kiri 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(-a#, -b#, c#) 'kiri bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-a#, b#, c#) 'kiri atas belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-a#, b#, -c#) 'kiri atas depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(-a#, -b#, -c#)'kiri bawah depan 
+glEnd() 
+ 
+'##########################################################
+'#####################tembok samping kiri########################
+'##########################################################     
+
+gltranslatef(-3.8,0,0)  'translasi ke kanan
+glBegin(GL_QUADS)  'sisi depan 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(aa#, bb#, -cc#) 'kanan atas   
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-aa#, bb#, -cc#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-aa#, -bb#, -cc#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(aa#, -bb#, -cc#)'kanan bawah 
+glEnd()                                      
+
+glBegin(GL_QUADS)  'sisi belakang 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(aa#, bb#, cc#) 'kanan atas   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)
+   glVertex3f(-aa#, bb#, cc#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)
+   glVertex3f(-aa#, bb#, cc#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)
+   glVertex3f(aa#, -bb#, cc#)'kanan bawah 
+glEnd()                                        
+       
+glBegin(GL_QUADS)  'sisi atas 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(aa#, bb#, -cc#) 'kanan depan   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)
+   glVertex3f(aa#, bb#, cc#) 'kanan belakang 
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)
+   glVertex3f(-aa#, bb#, cc#) 'kiri belakang 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)
+   glVertex3f(-aa#, bb#, -cc#)'kiri depan 
+glEnd()       
+
+glBegin(GL_QUADS)  'bawah 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(aa#, -bb#, cc#) 'kanan bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-aa#, -bb#, cc#) 'kiri bawah belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-aa#, -bb#, -cc#) 'kiri bawah depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(aa#, -bb#, -cc#)'kanan bawah depan 
+glEnd() 
+
+glBegin(GL_QUADS)  'samping kanan
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(aa#, bb#, -cc#) 'belakang atas  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(aa#, -bb#, -cc#) 'belakang bawah
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(aa#, -bb#, cc#) 'depan bawah
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(aa#, bb#, cc#)'depan atas
+glEnd()       
+
+glBegin(GL_QUADS)  'samping kiri 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(-aa#, -bb#, cc#) 'kiri bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-aa#, bb#, cc#) 'kiri atas belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-aa#, bb#, -cc#) 'kiri atas depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(-aa#, -bb#, -cc#)'kiri bawah depan 
+glEnd() 
+
+'##########################################################
+'#####################tembok samping belakang########################
+'########################################################## 
+  
+glrotatef(90,0,0,1) 'rotasi 90derajat
+gltranslatef(-1.4,-1.9,0)  'translasi ke kanan
+glBegin(GL_QUADS)  'sisi depan 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(aaa#, bbb#, -ccc#) 'kanan atas   
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-aaa#, bbb#, -ccc#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-aaa#, -bbb#, -ccc#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(aaa#, -bbb#, -ccc#)'kanan bawah 
+glEnd()                                      
+
+glBegin(GL_QUADS)  'sisi belakang 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(aaa#, bbb#, ccc#) 'kanan atas   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)
+   glVertex3f(-aaa#, bbb#, ccc#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)
+   glVertex3f(-aaa#, bbb#, ccc#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)
+   glVertex3f(aaa#, -bbb#, ccc#)'kanan bawah 
+glEnd()                                        
+       
+glBegin(GL_QUADS)  'sisi atas 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(aaa#, bbb#, -ccc#) 'kanan depan   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)
+   glVertex3f(aaa#, bbb#, ccc#) 'kanan belakang 
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)
+   glVertex3f(-aaa#, bbb#, ccc#) 'kiri belakang 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)
+   glVertex3f(-aaa#, bbb#, -ccc#)'kiri depan 
+glEnd()       
+
+glBegin(GL_QUADS)  'bawah 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(aaa#, -bbb#, ccc#) 'kanan bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-aaa#, -bbb#, ccc#) 'kiri bawah belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-aaa#, -bbb#, -ccc#) 'kiri bawah depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(aaa#, -bbb#, -ccc#)'kanan bawah depan 
+glEnd() 
+
+glBegin(GL_QUADS)  'samping kanan
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(aaa#, bbb#, -ccc#) 'belakang atas  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(aaa#, -bbb#, -ccc#) 'belakang bawah
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(aaa#, -bbb#, ccc#) 'depan bawah
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(aaa#, bbb#, ccc#)'depan atas
+glEnd()       
+
+glBegin(GL_QUADS)  'samping kiri 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(-aaa#, -bbb#, ccc#) 'kiri bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-aaa#, bbb#, ccc#) 'kiri atas belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-aaa#, bbb#, -ccc#) 'kiri atas depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(-aaa#, -bbb#, -ccc#)'kiri bawah depan 
+glEnd() 
+
+'##########################################################
+'#####################tembok samping kanan 2########################
+'##########################################################
+
+glrotatef(270,0,0,1)
+gltranslatef(1.9,1.4,-0.5)  'translasi ke kanan
+glBegin(GL_QUADS)  'sisi depan 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(a2#, b2#, -c2#) 'kanan atas   
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-a2#, b2#, -c2#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-a2#, -b2#, -c2#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(a2#, -b2#, -c2#)'kanan bawah 
+glEnd()                                      
+
+glBegin(GL_QUADS)  'sisi belakang 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(a2#, b2#, c2#) 'kanan atas   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)
+   glVertex3f(-a2#, b2#, c2#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)
+   glVertex3f(-a2#, b2#, c2#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)
+   glVertex3f(a2#, -b2#, c2#)'kanan bawah 
+glEnd()                                        
+       
+glBegin(GL_QUADS)  'sisi atas 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(a2#, b2#, -c2#) 'kanan depan   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)
+   glVertex3f(a2#, b2#, c2#) 'kanan belakang 
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)
+   glVertex3f(-a2#, b2#, c2#) 'kiri belakang 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)
+   glVertex3f(-a2#, b2#, -c2#)'kiri depan 
+glEnd()       
+
+glBegin(GL_QUADS)  'bawah 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(a2#, -b2#, c2#) 'kanan bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-a2#, -b2#, c2#) 'kiri bawah belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-a2#, -b2#, -c2#) 'kiri bawah depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(a2#, -b2#, -c2#)'kanan bawah depan 
+glEnd() 
+
+glBegin(GL_QUADS)  'samping kanan
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(a2#, b2#, -c2#) 'belakang atas  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(a2#, -b2#, -c2#) 'belakang bawah
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(a2#, -b2#, c2#) 'depan bawah
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(a2#, b2#, c2#)'depan atas
+glEnd()       
+
+glBegin(GL_QUADS)  'samping kiri 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(-a2#, -b2#, c2#) 'kiri bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-a2#, b2#, c2#) 'kiri atas belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-a2#, b2#, -c2#) 'kiri atas depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(-a2#, -b2#, -c2#)'kiri bawah depan 
+glEnd() 
+ 
+'##########################################################
+'#####################tembok samping kiri2########################
+'##########################################################     
+
+gltranslatef(-3.8,0,0)  'translasi ke kanan
+glBegin(GL_QUADS)  'sisi depan 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(aa2#, bb2#, -cc2#) 'kanan atas   
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-aa2#, bb2#, -cc2#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-aa2#, -bb2#, -cc2#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(aa2#, -bb2#, -cc2#)'kanan bawah 
+glEnd()                                      
+
+glBegin(GL_QUADS)  'sisi belakang 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(aa2#, bb2#, cc2#) 'kanan atas   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)
+   glVertex3f(-aa2#, bb2#, cc2#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)
+   glVertex3f(-aa2#, bb2#, cc2#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)
+   glVertex3f(aa2#, -bb2#, cc2#)'kanan bawah 
+glEnd()                                        
+       
+glBegin(GL_QUADS)  'sisi atas 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(aa2#, bb2#, -cc2#) 'kanan depan   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)
+   glVertex3f(aa2#, bb2#, cc2#) 'kanan belakang 
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)
+   glVertex3f(-aa2#, bb2#, cc2#) 'kiri belakang 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)
+   glVertex3f(-aa2#, bb2#, -cc2#)'kiri depan 
+glEnd()       
+
+glBegin(GL_QUADS)  'bawah 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(aa2#, -bb2#, cc2#) 'kanan bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-aa2#, -bb2#, cc2#) 'kiri bawah belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-aa2#, -bb2#, -cc2#) 'kiri bawah depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(aa2#, -bb2#, -cc2#)'kanan bawah depan 
+glEnd() 
+
+glBegin(GL_QUADS)  'samping kanan
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(aa2#, bb2#, -cc2#) 'belakang atas  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(aa2#, -bb2#, -cc2#) 'belakang bawah
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(aa2#, -bb2#, cc2#) 'depan bawah
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(aa2#, bb2#, cc2#)'depan atas
+glEnd()       
+
+glBegin(GL_QUADS)  'samping kiri 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(-aa2#, -bb2#, cc2#) 'kiri bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-aa2#, bb2#, cc2#) 'kiri atas belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-aa2#, bb2#, -cc2#) 'kiri atas depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(-aa2#, -bb2#, -cc2#)'kiri bawah depan 
+glEnd() 
+
+'##########################################################
+'#####################tembok samping belakang2########################
+'########################################################## 
+  
+glrotatef(90,0,0,1) 'rotasi 90derajat
+gltranslatef(-1.4,-1.9,0)  'translasi ke kanan
+glBegin(GL_QUADS)  'sisi depan 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(aaa2#, bbb2#, -ccc2#) 'kanan atas   
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-aaa2#, bbb2#, -ccc2#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-aaa2#, -bbb2#, -ccc2#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(aaa2#, -bbb2#, -ccc2#)'kanan bawah 
+glEnd()                                      
+
+glBegin(GL_QUADS)  'sisi belakang 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(aaa2#, bbb2#, ccc2#) 'kanan atas   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)
+   glVertex3f(-aaa2#, bbb2#, ccc2#) 'kiri atas
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)
+   glVertex3f(-aaa2#, bbb2#, ccc2#) 'kiri bawah 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)
+   glVertex3f(aaa2#, -bbb2#, ccc2#)'kanan bawah 
+glEnd()                                        
+       
+glBegin(GL_QUADS)  'sisi atas 
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(aaa2#, bbb2#, -ccc2#) 'kanan depan   
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(0,0)
+   glVertex3f(aaa2#, bbb2#, ccc2#) 'kanan belakang 
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(1,0)
+   glVertex3f(-aaa2#, bbb2#, ccc2#) 'kiri belakang 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,1)
+   glVertex3f(-aaa2#, bbb2#, -ccc2#)'kiri depan 
+glEnd()       
+
+glBegin(GL_QUADS)  'bawah 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(aaa2#, -bbb2#, ccc2#) 'kanan bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-aaa2#, -bbb2#, ccc2#) 'kiri bawah belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-aaa2#, -bbb2#, -ccc2#) 'kiri bawah depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(aaa2#, -bbb2#, -ccc2#)'kanan bawah depan 
+glEnd() 
+
+glBegin(GL_QUADS)  'samping kanan
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(aaa2#, bbb2#, -ccc2#) 'belakang atas  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(aaa2#, -bbb2#, -ccc2#) 'belakang bawah
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(aaa2#, -bbb2#, ccc2#) 'depan bawah
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(aaa2#, bbb2#, ccc2#)'depan atas
+glEnd()       
+
+glBegin(GL_QUADS)  'samping kiri 
+   'glColor3f(1,0,0) 'warna merah
+   glTexCoord2d(1,1)
+   glVertex3f(-aaa2#, -bbb2#, ccc2#) 'kiri bawah belakang  
+   'glColor3f(0,1,0) 'warna hijau
+   glTexCoord2d(0,1)
+   glVertex3f(-aaa2#, bbb2#, ccc2#) 'kiri atas belakang
+   'glColor3f(0,0,1) 'warna biru
+   glTexCoord2d(0,0)
+   glVertex3f(-aaa2#, bbb2#, -ccc2#) 'kiri atas depan 
+   'glColor3f(1,1,0) 'warna kuning 
+   glTexCoord2d(1,0)
+   glVertex3f(-aaa2#, -bbb2#, -ccc2#)'kiri bawah depan 
+glEnd() 
+
+
+   swapBuffers()
+if scankeydown(VK_UP) then
+    putar#=putar#+0.1 
+elseif scankeydown(VK_DOWN) then 
+    putar#=putar#-0.1  
+elseif scankeydown(VK_RIGHT) then 
+    putar2#=putar2#+0.1 
+elseif scankeydown(VK_LEFT) then 
+    putar2#=putar2#-0.1
+    endif
+      wend
+
+'swapBuffers()
+'     if scankeydown(VK_RIGHT) then 
+'    pmatax# = pmatax# + pindah#
+'   ppandangx# = ppandangx# + pindah#
+'elseif scankeydown(VK_LEFT) then 
+'    pmatax# = pmatax# - pindah#      
+'   ppandangx# = ppandangx# - pindah#       
+'elseif scankeydown(VK_UP) then 
+'    pmatay# = pmatay# + pindah#      
+'   ppandangy# = ppandangy# - pindah#
+'elseif scankeydown(VK_DOWN) then 
+'    pmatay# = pmatay# - pindah#      
+'   ppandangy# = ppandangy# - pindah
+'endif
+'wend
